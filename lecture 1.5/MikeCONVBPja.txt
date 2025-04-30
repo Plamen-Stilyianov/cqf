@@ -1,0 +1,324 @@
+private static final double Log2 = 0.693147180559945;
+private static final double twoPI = 6.28318530717959;
+
+public double jaBermPutCONV(double S, double K, double r, double q, double Tyr, double vol, int nStepT, int nPower2)
+{
+	double dT = 0;
+	double erdT = 0;
+	double vol2 = 0;
+	double rnmudT = 0;
+	double SqrtV = 0;
+	double dy = 0;
+	double ydisc = 0;
+	double yeps = 0;
+	double du = 0;
+	double crfi = 0;
+	double cifi = 0;
+	double xdisc = 0;
+	double xeps = 0;
+	double xShift = 0;
+	double crecfi = 0;
+	double ciecfi = 0;
+	int delta = 0;
+	int i = 0;
+	int iBase = 0;
+	int id = 0;
+	int iSwitch = 0;
+	int j = 0;
+	Object a1vec = null;
+	Object c1vec = null;
+
+	double[] bgvec = null;
+	double[] ciavec = null;
+	double[] cicfvec = null;
+	double[] cilncfvec = null;
+	double[] ciaecfvec = null;
+	double[] cravec = null;
+	double[] crcfvec = null;
+	double[] crlncfvec = null;
+	double[] craecfvec = null;
+	double[] cvec = null;
+	double[] evec = null;
+	double[] uvec = null;
+	double[] vvec = null;
+	double[] vwtwvec = null;
+	double[] wtwvec = null;
+	double[] wvec = null;
+	double[] xvec = null;
+	double[] yvec = null;
+	double[] zerovec = null;
+	bgvec = new double[nPower2];
+	ciavec = new double[nPower2];
+	cicfvec = new double[nPower2];
+	cilncfvec = new double[nPower2];
+	ciaecfvec = new double[nPower2];
+	cravec = new double[nPower2];
+	crcfvec = new double[nPower2];
+	crlncfvec = new double[nPower2];
+	craecfvec = new double[nPower2];
+	cvec = new double[nPower2];
+	evec = new double[nPower2];
+	uvec = new double[nPower2];
+	vvec = new double[nPower2];
+	vwtwvec = new double[nPower2];
+	wtwvec = new double[nPower2];
+	wvec = new double[nPower2];
+	xvec = new double[nPower2];
+	yvec = new double[nPower2];
+	zerovec = new double[nPower2];
+	
+	iBase = 0;
+	iSwitch = 1;
+	delta = 20;
+	dT = Tyr / nStepT;
+	erdT = Exp(-r * dT);
+	vol2 = vol * vol;
+	rnmudT = (r - q - 0.5 * vol2) * dT;
+	SqrtV = vol * Sqrt(Tyr);
+	dy = delta * SqrtV / nPower2;
+	ydisc = Log(K / S);
+	yeps = ydisc - jaCeiling(ydisc / dy) * dy;
+	du = twoPI / (nPower2 * dy);
+
+	for (Object i = 0; i <= nPower2 - 2; i += 2)
+	{
+		wvec(i) = 1;
+		wvec(i + 1) = -1;
+		wtwvec(i) = 1;
+		wtwvec(i + 1) = -1;
+	}
+	wtwvec(0) = 0.5;
+	wtwvec(nPower2 - 1) = -0.5;
+
+	bgvec(0) = -0.5 * nPower2 * dy;
+	yvec(0) = bgvec(0) + yeps;
+	uvec(0) = -0.5 * nPower2 * du;
+	for (Object i = 1; i < nPower2; i++)
+	{
+		bgvec(i) = bgvec(i - 1) + dy;
+		yvec(i) = bgvec(i) + yeps;
+		uvec(i) = uvec(i - 1) + du;
+	}
+
+	for (Object i = 0; i < nPower2; i++)
+	{
+		crfi = -0.5 * vol2 * dT * uvec(i) * uvec(i);
+		cifi = rnmudT * uvec(i);
+		crcfvec(i) = Exp(crfi) * Cos(cifi);
+		cicfvec(i) = Exp(crfi) * Sin(cifi);
+		evec(i) = Max(K - S * Exp(yvec(i)), 0);
+		vvec(i) = evec(i);
+		vwtwvec(i) = vvec(i) * wtwvec(i);
+		zerovec(i) = 0;
+	}
+
+	for (Object j = nStepT - 1; j >= 1; j--)
+	{
+
+		a1vec = jaCONVfvec(1, vwtwvec, zerovec, nPower2, iSwitch, iBase);
+
+		for (Object i = 0; i < nPower2; i++)
+		{
+			cravec(i) = a1vec(i, 0) * crcfvec(i) - a1vec(i, 1) * cicfvec(i);
+			ciavec(i) = a1vec(i, 0) * cicfvec(i) + a1vec(i, 1) * crcfvec(i);
+		}
+
+		c1vec = jaCONVfvec(-1, cravec, ciavec, nPower2, iSwitch, iBase);
+
+		for (Object i = 0; i < nPower2; i++)
+		{
+			cvec(i) = erdT * wvec(i) * c1vec(i, 0);
+			if (cvec(i) > evec(i))
+			{
+				break;
+			}
+		}
+
+		id = i;
+		if (id == 0)
+		{
+			id = 1;
+		}
+
+		xdisc = (evec(id - 1) - cvec(id - 1)) * yvec(id) - (evec(id) - cvec(id)) * yvec(id - 1);
+		xdisc = xdisc / (evec(id - 1) - evec(id) + cvec(id) - cvec(id - 1));
+		xeps = xdisc - jaCeiling(xdisc / dy) * dy;
+		xShift = xeps - yeps;
+
+		for (Object i = 0; i < nPower2; i++)
+		{
+			xvec(i) = bgvec(i) + xeps;
+			evec(i) = Max(K - S * Exp(xvec(i)), 0);
+			crecfi = Cos(xShift * uvec(i));
+			ciecfi = Sin(xShift * uvec(i));
+			craecfvec(i) = cravec(i) * crecfi - ciavec(i) * ciecfi;
+			ciaecfvec(i) = cravec(i) * ciecfi + ciavec(i) * crecfi;
+		}
+
+		c1vec = jaCONVfvec(-1, craecfvec, ciaecfvec, nPower2, iSwitch, iBase);
+
+		for (Object i = 0; i < nPower2; i++)
+		{
+			cvec(i) = erdT * wvec(i) * c1vec(i, 0);
+			vvec(i) = Max(cvec(i), evec(i));
+			vwtwvec(i) = vvec(i) * wtwvec(i);
+			yvec(i) = xvec(i);
+	}
+	
+			yeps = xeps;
+	
+		Next j;
+	
+		xdisc = 0;
+		xShift = -yeps;
+		id = 0.5 * nPower2;
+	
+		a1vec = jaCONVfvec(1, vwtwvec, zerovec, nPower2, iSwitch, iBase);
+	
+		for (Object i = 0; i < nPower2; i++)
+		{
+			crfi = -0.5 * vol2 * dT * uvec(i) * uvec(i);
+			cifi = rnmudT * uvec(i);
+			crecfi = Exp(crfi) * Cos(cifi + xShift * uvec(i));
+			ciecfi = Exp(crfi) * Sin(cifi + xShift * uvec(i));
+			craecfvec(i) = a1vec(i, 0) * crecfi - a1vec(i, 1) * ciecfi;
+			ciaecfvec(i) = a1vec(i, 0) * ciecfi + a1vec(i, 1) * crecfi;
+		}
+	
+	c1vec = jaCONVfvec(-1, craecfvec, ciaecfvec, nPower2, iSwitch, iBase);
+
+	return erdT * wvec(id) * c1vec(id, 0);
+}
+
+public Object jaCONVfvec(int iFwdInv, Object crfvec, Object cifvec, int nPower2, int iSwitch, int iBase)
+{
+	double da = 0;
+	double alpha = 0;
+	double beta = 0;
+	double ar = 0;
+	double ai = 0;
+	double tr = 0;
+	double ti = 0;
+	double dar = 0;
+	double fi = 0;
+	int blockEnd = 0;
+	int blockSize = 0;
+	int i = 0;
+	int indx = 0;
+	int j = 0;
+	int jk = 0;
+	int n = 0;
+	int nBits = 0;
+	double[][] fvec = null;
+	fvec = new double[nPower2][2];
+
+	nBits = Log(nPower2) / Log2;
+
+	for (i = 0; i < nPower2; i++)
+	{
+		indx = i;
+		j = 0;
+		for (jk = 0; jk < nBits; jk++)
+		{
+			j = (j * 2) | (indx & 1);
+			indx = jaIntL(indx, 2);
+		}
+		fvec[j][0] = crfvec(i + iBase);
+		fvec[j][1] = cifvec(i + iBase);
+	}
+
+	blockEnd = 1;
+	blockSize = 2;
+
+	while (blockSize <= nPower2)
+	{
+		da = iFwdInv * twoPI / blockSize;
+		alpha = 2 * Sin(0.5 * da) * Sin(0.5 * da);
+		beta = Sin(da);
+
+		i = 0;
+		while (i < nPower2)
+		{
+			ar = 1;
+			ai = 0;
+
+			j = i;
+			for (n = 0; n < blockEnd; n++)
+			{
+				jk = j + blockEnd;
+				tr = ar * fvec[jk][0] - ai * fvec[jk][1];
+				ti = ai * fvec[jk][0] + ar * fvec[jk][1];
+				fvec[jk][0] = fvec[j][0] - tr;
+				fvec[j][0] = fvec[j][0] + tr;
+				fvec[jk][1] = fvec[j][1] - ti;
+				fvec[j][1] = fvec[j][1] + ti;
+				dar = alpha * ar + beta * ai;
+				ai = ai - (alpha * ai - beta * ar);
+				ar = ar - dar;
+				j = j + 1;
+			}
+
+			i = i + blockSize;
+		}
+
+		blockEnd = blockSize;
+		blockSize = blockSize * 2;
+	}
+
+	if (iSwitch == 1)
+	{
+		for (i = nPower2 / 2.0 + 1; i < nPower2; i++)
+		{
+			fi = fvec[i][0];
+			fvec[i][0] = fvec[nPower2 - i][0];
+			fvec[nPower2 - i][0] = fi;
+			fi = fvec[i][1];
+			fvec[i][1] = fvec[nPower2 - i][1];
+			fvec[nPower2 - i][1] = fi;
+		}
+	}
+
+	if (iFwdInv == -1)
+	{
+		for (i = 0; i < nPower2; i++)
+		{
+			fvec[i][0] = fvec[i][0] / nPower2;
+			fvec[i][1] = fvec[i][1] / nPower2;
+		}
+	}
+
+	return fvec;
+}
+
+public double Max(double x1, double x2)
+{
+	double tempMax = 0;
+	if (x1 >= x2)
+	{
+		tempMax = x1;
+	}
+	else
+	{
+		tempMax = x2;
+	}
+	return tempMax;
+}
+
+public double jaCeiling(double x)
+{
+	double tempjaCeiling = 0;
+	if ((int)Math.floor(x) == x)
+	{
+		tempjaCeiling = x;
+	}
+	else
+	{
+		tempjaCeiling = (int)Math.floor(x) + 1;
+	}
+	return tempjaCeiling;
+}
+
+public int jaIntL(int i1, int i2)
+{
+	return (int)Math.floor(i1 / (double)i2);
+}

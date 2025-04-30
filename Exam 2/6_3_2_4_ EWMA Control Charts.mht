@@ -1,0 +1,681 @@
+From: "Saved by Windows Internet Explorer 7"
+Subject: 6.3.2.4. EWMA Control Charts
+Date: Wed, 4 Mar 2009 21:49:40 -0000
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----=_NextPart_000_0000_01C99D13.1EC869C0"
+X-MimeOLE: Produced By Microsoft MimeOLE V6.0.6001.18049
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0000_01C99D13.1EC869C0
+Content-Type: text/html;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://www.itl.nist.gov/div898/handbook/pmc/section3/pmc324.htm
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>6.3.2.4. EWMA Control Charts</TITLE>
+<META http-equiv=3DContent-Type content=3D"text/html; =
+charset=3Diso-8859-1">
+<META content=3D"MSHTML 6.00.6001.18203" name=3DGENERATOR></HEAD>
+<BODY bgColor=3D#ffffcc><IMG isMap=20
+src=3D"http://www.itl.nist.gov/div898/handbook/gifs/nvgtbr.gif" =
+useMap=3D#MenuBar=20
+border=3D0 VALIGN=3D"TOP"> <MAP name=3DMenuBar><AREA shape=3DRECT =
+alt=3D"Next Page"=20
+  coords=3D463,27,504,45=20
+  =
+href=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/pmc33.htm"><=
+AREA=20
+  shape=3DRECT alt=3D"Previous Page" coords=3D417,28,459,45=20
+  =
+href=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/pmc3231.htm"=
+><AREA=20
+  shape=3DRECT alt=3DHome coords=3D52,0,100,43=20
+  href=3D"http://www.itl.nist.gov/div898/handbook/index.htm"><AREA =
+shape=3DRECT=20
+  alt=3D"Tools &amp; Aids" coords=3D165,27,264,46=20
+  href=3D"http://www.itl.nist.gov/div898/handbook/toolaids.htm"><AREA =
+shape=3DRECT=20
+  alt=3D"Search Handbook" coords=3D307,28,366,44=20
+  href=3D"http://www.itl.nist.gov/div898/handbook/search.htm"><AREA =
+shape=3DRECT=20
+  coords=3D0,0,0,0></MAP><BR>
+<TABLE cellSpacing=3D20 cellPadding=3D0 width=3D540>
+  <TBODY>
+  <TR>
+    <TD vAlign=3Dtop colSpan=3D2><FONT size=3D-1><FONT =
+color=3D#d60021>6.</FONT> <FONT=20
+      color=3D#00105a><A=20
+      =
+href=3D"http://www.itl.nist.gov/div898/handbook/pmc/pmc.htm">Process or=20
+      Product Monitoring and Control</A></FONT> <BR><FONT=20
+      color=3D#d60021>6.3.</FONT> <FONT color=3D#00105a><A=20
+      =
+href=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/pmc3.htm">Un=
+ivariate=20
+      and Multivariate Control Charts</A></FONT> <BR><FONT=20
+      color=3D#d60021>6.3.2.</FONT> <FONT color=3D#00105a><A=20
+      =
+href=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/pmc32.htm">W=
+hat=20
+      are Variables Control Charts?</A></FONT> <BR></FONT><BR>
+      <TABLE>
+        <TBODY>
+        <TR>
+          <TD vAlign=3Dtop>
+            <H2><FONT color=3D#d60021>6.3.2.4.</FONT></H2></TD>
+          <TD vAlign=3Dtop>
+            <H2>EWMA Control =
+Charts</H2></TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TD vAlign=3Dtop width=3D"15%"><I>EWMA statistic</I> </TD>
+    <TD vAlign=3Dtop width=3D"85%">The Exponentially Weighted Moving =
+Average=20
+      (EWMA) is a statistic for monitoring the process that averages the =
+data in=20
+      a way that gives less and less weight to data as they are further =
+removed=20
+      in time. </TD></TR>
+  <TR>
+    <TD vAlign=3Dtop width=3D"15%"><I>Comparison of Shewhart control =
+chart and=20
+      EWMA control chart techniques</I> </TD>
+    <TD vAlign=3Dtop width=3D"85%">For the <A=20
+      =
+href=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/pmc32.htm">S=
+hewhart=20
+      chart control</A> technique, the decision regarding the state of =
+control=20
+      of the process at any time, <I>t,</I> depends solely on the most =
+recent=20
+      measurement from the process and, of course, the degree of =
+'trueness' of=20
+      the estimates of the control limits from historical data. For the =
+EWMA=20
+      control technique, the decision depends on the EWMA statistic, =
+which is an=20
+      exponentially weighted average of all prior data, including the =
+most=20
+      recent measurement.=20
+      <P>By the choice of weighting factor, <IMG alt=3Dlambda=20
+      =
+src=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/eqns/lambda.g=
+if"=20
+      align=3DabsMiddle>, the EWMA control procedure can be made =
+sensitive to a=20
+      small or gradual drift in the process, whereas the Shewhart =
+control=20
+      procedure can only react when the last data point is outside a =
+control=20
+      limit. </P></TD></TR>
+  <TR>
+    <TD vAlign=3Dtop width=3D"15%"><I>Definition of EWMA</I> </TD>
+    <TD vAlign=3Dtop width=3D"85%">The statistic that is calculated is:=20
+      <UL>EWMA<SUB>t</SUB> =3D <IMG alt=3Dlambda=20
+        =
+src=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/eqns/lambda.g=
+if"=20
+        align=3DabsMiddle> Y<SUB>t</SUB> + ( 1- <IMG alt=3Dlambda=20
+        =
+src=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/eqns/lambda.g=
+if"=20
+        align=3DabsMiddle>) EWMA<SUB>t-1</SUB>&nbsp;&nbsp;&nbsp; for t =
+=3D 1, 2,=20
+        ..., <I>n</I>. </UL>where=20
+      <UL>
+        <LI>EWMA<SUB>0</SUB> is the mean of historical data (target)=20
+        <LI>Y<SUB>t</SUB> is the observation at time <I>t</I>=20
+        <LI><I>n</I> is the number of observations to be monitored =
+including=20
+        EWMA<SUB>0</SUB>=20
+        <LI>0 &lt; <IMG alt=3Dlambda=20
+        =
+src=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/eqns/lambda.g=
+if"=20
+        align=3DabsMiddle> <IMG alt=3D"<=3D"=20
+        =
+src=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/eqns/le.gif" =
+
+        align=3DabsMiddle> 1 is a constant that determines the depth of =
+memory of=20
+        the EWMA. </LI></UL>The equation is due to Roberts (1959). =
+</TD></TR>
+  <TR>
+    <TD vAlign=3Dtop width=3D"15%"><I>Choice of weighting factor</I> =
+</TD>
+    <TD vAlign=3Dtop width=3D"85%">The parameter <IMG alt=3Dlambda=20
+      =
+src=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/eqns/lambda.g=
+if"=20
+      align=3DabsMiddle> determines the rate at which 'older' data enter =
+into the=20
+      calculation of the EWMA statistic. A value of <IMG alt=3Dlambda=20
+      =
+src=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/eqns/lambda.g=
+if"=20
+      align=3DabsMiddle> =3D 1 implies that only the most recent =
+measurement=20
+      influences the EWMA (degrades to Shewhart chart). Thus, a large =
+value of=20
+      <IMG alt=3Dlambda=20
+      =
+src=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/eqns/lambda.g=
+if"=20
+      align=3DabsMiddle> =3D 1 gives more weight to recent data and less =
+weight to=20
+      older data; a small value of <IMG alt=3Dlambda=20
+      =
+src=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/eqns/lambda.g=
+if"=20
+      align=3DabsMiddle> gives more weight to older data. The value of =
+<IMG=20
+      alt=3Dlambda=20
+      =
+src=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/eqns/lambda.g=
+if"=20
+      align=3DabsMiddle> is usually set between 0.2 and 0.3 <A=20
+      =
+href=3D"http://www.itl.nist.gov/div898/handbook/pmc/section7/refs.htm">(H=
+unter)</A>=20
+      although this choice is somewhat arbitrary. <A=20
+      =
+href=3D"http://www.itl.nist.gov/div898/handbook/pmc/section7/pmc7.htm#Luc=
+as, and Saccucci">Lucas=20
+      and Saccucci (1990)</A> give tables that help the user select <IMG =
+
+      alt=3Dlambda=20
+      =
+src=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/eqns/lambda.g=
+if"=20
+      align=3DabsMiddle>. </TD></TR>
+  <TR>
+    <TD vAlign=3Dtop width=3D"15%"><I>Variance of EWMA statistic</I> =
+</TD>
+    <TD vAlign=3Dtop width=3D"85%">The estimated variance of the EWMA =
+statistic is=20
+      approximately=20
+      <UL><I>s</I><SUP>2</SUP><SUB>ewma</SUB> =3D (<IMG alt=3Dlambda=20
+        =
+src=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/eqns/lambda.g=
+if"=20
+        align=3DabsMiddle>/(2- <IMG alt=3Dlambda=20
+        =
+src=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/eqns/lambda.g=
+if"=20
+        align=3DabsMiddle>)) <I>s</I><SUP>2</SUP> </UL>when <I>t</I> is =
+not small,=20
+      where <I>s</I> is the standard deviation calculated from the =
+historical=20
+      data. </TD></TR>
+  <TR>
+    <TD vAlign=3Dtop width=3D"15%"><I>Definition of control limits for =
+EWMA</I>=20
+</TD>
+    <TD vAlign=3Dtop width=3D"85%">The center line for the control chart =
+is the=20
+      target value or EWMA<SUB>0</SUB>. The control limits are:=20
+      <UL>UCL =3D EWMA<SUB>0</SUB> + <I>k</I>s<SUB>ewma</SUB> <BR>LCL =
+=3D=20
+        EWMA<SUB>0</SUB> - <I>k</I>s<SUB>ewma</SUB> </UL>
+      <P>where the factor <I>k</I> is either set equal 3 or chosen using =
+the <A=20
+      =
+href=3D"http://www.itl.nist.gov/div898/handbook/pmc/section7/pmc7.htm#Luc=
+as, and Saccucci">Lucas=20
+      and Saccucci (1990)</A> tables. The data are assumed to be =
+independent and=20
+      these tables also assume a normal population.=20
+      <P>As with all control procedures, the EWMA procedure depends on a =
+
+      database of measurements that are truly representative of the =
+process.=20
+      Once the mean value and standard deviation have been calculated =
+from this=20
+      database, the process can enter the monitoring stage, provided the =
+process=20
+      was in control when the data were collected. If not, then the =
+usual Phase=20
+      1 work would have to be completed first. </P></TD></TR>
+  <TR>
+    <TD vAlign=3Dtop width=3D"15%"><I>Example of calculation of =
+parameters for an=20
+      EWMA control chart</I> </TD>
+    <TD vAlign=3Dtop width=3D"85%">To illustrate the construction of an =
+EWMA=20
+      control chart, consider a process with the following parameters =
+calculated=20
+      from historical data:=20
+      <UL>EWMA<SUB>0</SUB> =3D 50 <BR><I>s</I> =3D 2.0539 </UL>
+      <P>with <IMG alt=3Dlambda=20
+      =
+src=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/eqns/lambda.g=
+if"=20
+      align=3DabsMiddle> chosen to be 0.3 so that <IMG alt=3Dlambda=20
+      =
+src=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/eqns/lambda.g=
+if"=20
+      align=3DabsMiddle> / (2-<IMG alt=3Dlambda=20
+      =
+src=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/eqns/lambda.g=
+if"=20
+      align=3DabsMiddle>) =3D .3 / 1.7 =3D 0.1765 and the square root =
+=3D 0.4201. The=20
+      control limits are given by=20
+      <UL>UCL =3D 50 + 3 (0.4201)(2.0539) =3D 52.5884 <BR>LCL =3D 50 - 3 =
+(0.4201)=20
+        (2.0539) =3D 47.4115 </UL></TD></TR>
+  <TR>
+    <TD vAlign=3Dtop width=3D"15%"><I>Sample data</I> </TD>
+    <TD vAlign=3Dtop width=3D"85%">Consider the following data =
+consisting of 20=20
+      points where 1 - 10 are on the top row from left to right and =
+11-20 are on=20
+      the bottom row from left to right: <PRE>  52.0 47.0 53.0 49.3 50.1 =
+47.0
+  51.0 50.1 51.2 50.5 49.6 47.6
+  49.9 51.3 47.8 51.2 52.6 52.4
+  53.6 52.1
+</PRE></TD></TR>
+  <TR>
+    <TD vAlign=3Dtop width=3D"15%"><I>EWMA statistics for sample =
+data</I> </TD>
+    <TD vAlign=3Dtop width=3D"85%">These data represent control =
+measurements from=20
+      the process which is to be monitored using the EWMA control chart=20
+      technique. The corresponding EWMA statistics that are computed =
+from this=20
+      data set are: <PRE>  50.00 50.60 49.52 50.56 50.18
+  50.16 49.12 49.75 49.85 50.26
+  50.33 50.11 49.36 49.52 50.05
+  49.34 49.92 50.73 51.23 51.94
+</PRE></TD></TR></TBODY></TABLE>
+<TABLE cellSpacing=3D20 cellPadding=3D0 width=3D540><!-- begin paragraph =
+-->
+  <TBODY>
+  <TR>
+    <TD vAlign=3Dtop width=3D"15%"><!-- Add marginal notes below =
+--><I>Sample EWMA=20
+      plot </I></TD>
+    <TD vAlign=3Dtop width=3D"85%"><!-- Add main text below -->The =
+control chart=20
+      is given below.=20
+      <P>
+      <CENTER><IMG height=3D382 alt=3D"EWMA plot of above data"=20
+      =
+src=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/gifs/ewma.gif=
+"=20
+      width=3D420> </CENTER></TD></TR><!-- end paragraph =
+--></TBODY></TABLE>
+<TABLE cellSpacing=3D20 cellPadding=3D0 width=3D540>
+  <TBODY>
+  <TR>
+    <TD vAlign=3Dtop width=3D"15%"><I>Interpretation of EWMA control =
+chart</I> </TD>
+    <TD vAlign=3Dtop width=3D"85%">The red dots are the raw data; the =
+jagged line=20
+      is the EWMA statistic over time. The chart tells us that the =
+process is in=20
+      control because all EWMA<SUB>t</SUB> lie between the control =
+limits.=20
+      However, there seems to be a trend upwards for the last 5 periods. =
+
+  </TD></TR></TBODY></TABLE><IMG=20
+src=3D"http://www.itl.nist.gov/div898/handbook/gifs/nvgbrbtm.gif"=20
+useMap=3D#nvbar.nvbar border=3D0> <MAP name=3Dnvbar.nvbar><AREA =
+shape=3DRECT=20
+  coords=3D22,6,67,20 href=3D"http://www.nist.gov/"><AREA shape=3DRECT=20
+  coords=3D3,23,92,40=20
+  =
+href=3D"http://www.nist.gov/cgi-bin/exit_nist.cgi?url=3Dhttp://www.semate=
+ch.org"><AREA=20
+  shape=3DRECT alt=3DHome coords=3D114,12,165,31=20
+  href=3D"http://www.itl.nist.gov/div898/handbook/index.htm"><AREA =
+shape=3DRECT=20
+  alt=3D"Tools &amp; Aids" coords=3D190,12,290,31=20
+  href=3D"http://www.itl.nist.gov/div898/handbook/toolaids.htm"><AREA =
+shape=3DRECT=20
+  alt=3D"Search Handbook" coords=3D318,14,376,30=20
+  href=3D"http://www.itl.nist.gov/div898/handbook/search.htm"><AREA =
+shape=3DRECT=20
+  alt=3D"Previous Page" coords=3D428,15,471,29=20
+  =
+href=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/pmc3231.htm"=
+><AREA=20
+  shape=3DRECT alt=3D"Next Page" coords=3D476,15,517,30=20
+  =
+href=3D"http://www.itl.nist.gov/div898/handbook/pmc/section3/pmc33.htm"><=
+AREA=20
+  shape=3DRECT coords=3D0,0,0,0></MAP></BODY></HTML>
+
+------=_NextPart_000_0000_01C99D13.1EC869C0
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.itl.nist.gov/div898/handbook/gifs/nvgtbr.gif
+
+R0lGODlhAQIwAPcAAP///5ycnKWlpc7OztbW1t7e3ufe3rWtraWcnP/v78alpffGxue1tfe9vfe1
+tf+1td6MjO+MjPeEhO97e+dra/+tpe+clO+Ee//Oxv/Gvf/Wzs6lnPetnP/e1vfWzt69td6tnO+9
+pf/v5/fOtefGrca9tffv597WzrWtpf/evf/nxv/vztbOvc7Gtefext7Wvffvzu/nxv/3zvfvxu/v
+5///9+fn3q2tpbW1rcbGvdbWxv//3v//1u/3zu/3797n57XGzpytvcbO1q29zqW1xpSlvWN7nFJr
+lKWtvSlCewghYzFCc5SctYyUrYSMpWtzjGNrhEJShCk5axgpY3uEpVpjhCk5c1JaewgYWmNrlEpS
+e0JKcwgYYwAQWjlCcyEpYxghYxAYWhAYYwAIUsbGzr29xoyMlJSUnLW1xoSElHt7jHNzjISEpVpa
+e1pahFJSe0JCczk5awgIUgAASggASjEpY3tzlCEQUhgISjkpY3NjhK2ltYx7nIRzlFI5aykISiEA
+QjEQSmNKczkQUkohWikAOTkISkIQSjEAOc7GzpRzlFIYUkIIQloYUkoIQnM5a0IAOTEAKa2MpbWc
+rVIAOWsQSoRac5RKc3shUloAMWMIOWsAOdbGzpxrhJxae5RSc3MQQmMAMbWEnIxCY4QpUmsAMaVC
+a4QYQr1zjLVSc61Ka5wIOYwAMefO1s61vbVKa6U5WpQQOYQAKZwAMa0YQpwQOa0QOcalrc6MnMZj
+e8ZCY7UxUowAIaUAKb1Sa70pSpQAIb0AKdaElM57jNZac7VCWs5KY84pSrUQMd57jN4YOc4QMdYQ
+Md5zhO97jN5CWudCWtY5Uuc5UtYxSt4xStYpQt4QMecQMZQAGM4AIdYAId4AIecAIeelrc6MlN5r
+e/97jN5jc+djc95SY94pQt4hOechOa0AGLUAGPelre9aa+dSY+dCUs4AGNYAGN4AGOcAGO+MlM5z
+e++EjO97hPd7hNYhMdYAEP+MlO9ze/97hOdja+dSWt5CStYACAAAACH5BAEAADIALAAAAAABAjAA
+AAj/AGUIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePIEOKHEmypMmTKFOqXMmypcuX
+MGPKnEmzps2bOAvCiDEwBgyBO3uuEBhjqIygRGHwyMm0qdOnUKM+5EG1qtWrWLNqtYowRo6BOXjK
+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
+
+------=_NextPart_000_0000_01C99D13.1EC869C0
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.itl.nist.gov/div898/handbook/pmc/section3/eqns/lambda.gif
+
+R0lGODlhCQANAIAAAAAAAP///yH5BAEAAAEALAAAAAAJAA0AAAIWTGCpgGrsEozTVRtfk2w/DYYV
+dB1AAQA7
+
+------=_NextPart_000_0000_01C99D13.1EC869C0
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.itl.nist.gov/div898/handbook/pmc/section3/eqns/le.gif
+
+R0lGODlhDAAPAIAAAAAAAP///yH5BAEAAAEALAAAAAAMAA8AAAIajI+AC73WHJNTvfhOtBnSjnUe
+B37iiY7bWgAAOw==
+
+------=_NextPart_000_0000_01C99D13.1EC869C0
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.itl.nist.gov/div898/handbook/pmc/section3/gifs/ewma.gif
+
+R0lGODlhpAF+AfcAAP//////zP//mf//Zv//M///AP/M///MzP/Mmf/MZv/MM//MAP+Z//+ZzP+Z
+mf+ZZv+ZM/+ZAP9m//9mzP9mmf9mZv9mM/9mAP8z//8zzP8zmf8zZv8zM/8zAP8A//8AzP8Amf8A
+Zv8AM/8AAMz//8z/zMz/mcz/Zsz/M8z/AMzM/8zMzMzMmczMZszMM8zMAMyZ/8yZzMyZmcyZZsyZ
+M8yZAMxm/8xmzMxmmcxmZsxmM8xmAMwz/8wzzMwzmcwzZswzM8wzAMwA/8wAzMwAmcwAZswAM8wA
+AJn//5n/zJn/mZn/Zpn/M5n/AJnM/5nMzJnMmZnMZpnMM5nMAJmZ/5mZzJmZmZmZZpmZM5mZAJlm
+/5lmzJlmmZlmZplmM5lmAJkz/5kzzJkzmZkzZpkzM5kzAJkA/5kAzJkAmZkAZpkAM5kAAGb//2b/
+zGb/mWb/Zmb/M2b/AGbM/2bMzGbMmWbMZmbMM2bMAGaZ/2aZzGaZmWaZZmaZM2aZAGZm/2ZmzGZm
+mWZmZmZmM2ZmAGYz/2YzzGYzmWYzZmYzM2YzAGYA/2YAzGYAmWYAZmYAM2YAADP//zP/zDP/mTP/
+ZjP/MzP/ADPM/zPMzDPMmTPMZjPMMzPMADOZ/zOZzDOZmTOZZjOZMzOZADNm/zNmzDNmmTNmZjNm
+MzNmADMz/zMzzDMzmTMzZjMzMzMzADMA/zMAzDMAmTMAZjMAMzMAAAD//wD/zAD/mQD/ZgD/MwD/
+AADM/wDMzADMmQDMZgDMMwDMAACZ/wCZzACZmQCZZgCZMwCZAABm/wBmzABmmQBmZgBmMwBmAAAz
+/wAzzAAzmQAzZgAzMwAzAAAA/wAAzAAAmQAAZgAAMwAAAISChCkA/wDT1gDfAP///wAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAANwALAAAAACkAX4B
+QAj/ALkJFHhtoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo0eJBQ9eC2lwJDeTKEOiPHlSJUmT
+IkmWlElQJsyaH3Pq3Mmzp8+fQIPWHEm0qNGjSJMqXcq0qdOnUKNKnUq1qtWrWLNq3cq1a9KI2ISK
+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
+AVzGZnzGaJzGZxwQADs=
+
+------=_NextPart_000_0000_01C99D13.1EC869C0
+Content-Type: image/gif
+Content-Transfer-Encoding: base64
+Content-Location: http://www.itl.nist.gov/div898/handbook/gifs/nvgbrbtm.gif
+
+R0lGODlhCgIuAPcAAP///5ycnKWlpa2lpbWtre97e+9zc+dra++clO+Ee++cjPetnO+llPellPe1
+pffGrffOtffOrca9tb21rbWtpf/evffWte/exv/nxsa9rf/nvf/vztbOvc7Gtf/vxufext7WvdbO
+tefevffvzu/nxv/3zvfvxr29ta2tpbW1rb29rcbGtf//59bWvc7Otf//3u/vzufnxt7evf//1vf3
+zu/vxv//zrW9rb3GtbW9taWtpZScnJylpYyUnISMlHuElEpae3N7jEJSezlKczFCc3N7lGtzjGNr
+hCk5axgpYxAhWlpjhCExaxAhY1JaewgYWkpSe0JKcwAQWkJKezlCczE5axghWjE5cykxayEpYxgh
+YyEpaxAYWhAYYwgQWgAIUgAIWoyMlJSUnJycpYSEjISElHt7jHt7lHNzjGtrhGtrjGNjhFpae1pa
+hFJSe0pKc0JCa0JCczk5azk5czExayEhYxgYWhgYYxAQWggIUgAAQgAASgAAUnNrjHtzjIR7jJyU
+nNYAKd4xStYAId4pQt4hOedKWudCUt45StYAGOdrc+9rcwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAACUALAAAAAAKAi4A
+AAj/AEsIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePIEOKHEmypMmTKFOqXMmypcuX
+MGPKnEmzps2bOHPq3Mmzp8+fQIMKHUq0qNGjSJMqXcq0qdOnUKNKnUq1qtWrWLNq3UrRBsQZJUxs
+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
+yJqsyrqszNqszvqs0Bqt0iqpAQEAOw==
+
+------=_NextPart_000_0000_01C99D13.1EC869C0--

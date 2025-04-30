@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="webasian.war">
+    <output-path>$PROJECT_DIR$/out/artifacts/webasian</output-path>
+    <root id="archive" name="webasian.war">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="web-asianoptions-dissertation" />
+        </element>
+      </element>
+      <element id="file-copy" path="$PROJECT_DIR$/web/index.jsp" />
+      <element id="javaee-facet-resources" facet="webasian/web/Web" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,27 @@
+Contents of CD accompanying "Paul Wilmott On Quantitative 
+Finance, Second Edition."
+
+There are three folders on the CD, "Spreadsheets and VBA," 
+"Standalones" and "Wilmott magazine Lyceum."
+
+In the "Spreadsheets and VBA" folder There are 30 Excel 
+workbooks. Each corresponds to a chapter of "Paul Wilmott 
+On Quantitative Finance". (Many chapters don’t have 
+workbooks.) Each workbook typically has several sheets. 
+In order to run some macros you may need to install an 
+add-in to Excel called Solver. When you install Excel, 
+the standard installation does not include this add-in. 
+If Solver is not installed you will need to re-run the 
+Excel setup program and select this component before the 
+macros will work. C++ versions of some of these programs 
+are also available, just email paul@wilmott.com if you 
+would like these emailed to you.
+
+In the "Standalones" folder there are nine simple programs 
+useful for calculating various simple quantities, such as 
+option values, greeks etc.
+
+In the "Wilmott magazine Lyceum" folder are 16 Lyceum 
+articles from Wilmott magazine in pdf form.
+
+As always, email paul@wilmott.com if you have any problems.

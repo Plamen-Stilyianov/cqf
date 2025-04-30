@@ -1,0 +1,168 @@
+/*
+** Version 01
+** Date : 20/07/2001                                        
+** --------------------------------------------------------------------------
+** Copyright K.Cuthbertson and D. Nitzsche
+** "Financial Engineering:Derivatives and Risk Manangement" - J. Wiley 2001
+**
+**   INTEREST RATE DERIVATIVES 
+**
+**   Calculating payoffs from interst rate floors.    
+**
+*/
+
+new ;  cls ;
+
+/*
+ofile = "c:\\kcdn\\output.out" ;
+output file = ^ofile reset ;
+*/
+
+format /m1/rd 12,6;  output on ; screen on ;
+" ------------------------------------------------------------------------ " ;
+"                                                                          " ; 
+"   FILE : Chp15 Tab2 Floorlet Payoff.txt                                  " ;
+"   =====================================                                  " ;
+"                                                                          " ; 
+" Version  20/07/2001                                                      " ; 
+"                                                                          " ; 
+" Copyright K.Cuthbertson and D. Nitzsche                                  " ; 
+" 'Financial Engineering:Derivatives and Risk Manangement' - J. Wiley 2001 " ; 
+"                                                                          " ; 
+"  INTEREST RATE DERIVATIVES                                               " ; 
+"  Calculating payoffs from interest rate floors                           " ;
+"                                                                          " ;
+" ------------------------------------------------------------------------ " ;
+output off ; screen off ; 
+
+" ---------------------------------------------------------- " ;
+"                                                            " ; 
+"            Definitions of Variables Used                   " ;
+"            -----------------------------                   " ;
+"                                                            " ;
+"   Dep =       Deposit                                      " ;   
+"   P_put =     Premium put                                  " ;  
+"   K_flo =     Strike rate (floor) - decimals               " ;    
+"   r0 =        current interest rate - decimals             " ;   
+"   Spread =    Spread                                       " ;   
+"                                                            " ;
+"   Dep_st =    Start of loan (days)                         " ;   
+"   Dep_reset = Reset date (days)                            " ;   
+"   Day_y =     Day count (per Year)                         " ;   
+"                                                            " ;
+"   Size = ...                                               " ;   
+"   Step = ...                                               " ;   
+" ---------------------------------------------------------- " ;
+
+/* ------------------------------------- START USER DATA INPUT ----------------------------- */
+
+Dep         = 100000000 ;     
+P_put       = 250000 ;       
+K_flo       = 0.1 ;      
+r0          = 0.1 ;
+Spread      = 0 ;
+Dep_st      = 90 ;
+Dep_reset   = 180 ;
+Day_y       = 360 ;      
+Size        = 19 ;
+Step        = 0.005 ;
+
+/* ----------------------------------------- END USER DATA INPUT ---------------------------- */
+
+/* ------------------------------------ STARTING THE CALCULATION ---------------------------- */
+
+P_comp      = P_put*(1+(r0+Spread)*(Dep_st/Day_y)) ;
+EMo_lent    = Dep+P_comp ;
+TTPeriod    = Dep_st+Dep_reset ;
+
+put         = zeros(Size,1) ;
+
+Put_Poff    = zeros(Size,1) ; 
+r           = zeros(Size,1) ;
+Dep_int     = zeros(Size,1) ;
+Eff_int     = zeros(Size,1) ;
+Ret_y       = zeros(Size,1) ;
+Ret_n       = zeros(Size,1) ;
+
+@ -------------------------- Setting the Interest rate column ---------------------------- @
+mid         = (Size+1)/2 ;
+r[mid,1]    = r0 ;
+
+n = mid+1 ;
+    do until n > Size ;
+       r[n,1] = r[n-1,1] + Step ;
+    n = n+1 ;
+    endo ;
+
+n = mid-1 ;
+    do until n <= 0 ;
+       r[n,1] = r[n+1,1] - Step ;
+    n = n-1 ;
+    endo ;
+
+
+n = 1 ; 
+do until n > Size ;
+      put[n,1] = K_flo-r[n,1] ;
+      
+      if put[n,1] > 0 ; Put_Poff[n,1] = Dep*(K_flo-r[n,1])*(Dep_reset/Day_y) ;
+         
+         else ; Put_Poff[n,1] = 0 ;
+      endif ;
+
+      Dep_int[n,1]  = Dep*(r[n,1]+Spread)*Dep_reset/Day_y ;
+      Eff_int[n,1]  = Put_Poff[n,1]+Dep_int[n,1] ;
+      
+      Ret_y[n,1]    = ((((Dep+Eff_int[n,1])/EMo_lent)^(365/Dep_reset))-1)*100 ;
+      Ret_n[n,1]    = ((((Dep+Dep_int[n,1])/Dep)^(365/Dep_reset))-1)*100 ; 
+      
+n = n+1 ;
+endo ;
+
+
+/* --------------------------------------- PRINTING THE OUTPUT ----------------------------- */ 
+output on ; screen on ;
+
+mask = 1~1~1~1~1~1 ;
+
+let fmt[6,3] = 
+     "-*.*lf " 8 4 
+     "*.*lf" 15 2
+     "*.*lf" 19 2
+     "*.*lf" 18 2
+     "*.*lf" 14 4
+     "*.*lf" 16 4 ; 
+flo_tab = r~Put_Poff~Dep_int~Eff_int~Ret_y~Ret_n ; 
+
+@@ " ";
+@@ "                                 TABLE 15.02 : FLOORLET PAYOFFS " ;
+@@ "                                 ============================== " ;
+@@ "";
+
+@@ ftos(Dep,"Deposit : %*.*lf",53,2) ;
+@@ ftos(EMo_lent,"Effective money lent (when deposits starts) : %*.*lf",17,2) ;
+@@ ftos(P_put,"Put Premium : %*.*lf",49,2) ;
+@@ ftos(P_comp ,"Premium compounded : %*.*lf",42,2) ;
+@@ "";
+@@ ftos(r0,"Current int. rates (LIBOR) : %*.*lf",36,4) ;
+@@ ftos(Spread,"Spread : %*.*lf",56,4) ;
+@@ ftos(K_flo,"K (strike rate) : %*.*lf",47,4) ;
+@@ "";
+@@ ftos(Dep_st,"Start of the deposit (days) : %*.*lf",30,0) ;
+@@ ftos(Dep_reset,"Reset dates for deposit (days) : %*.*lf",27,0) ;
+@@ ftos(Day_y,"Days in the year (for cap) : %*.*lf",31,0) ;
+@@ ftos(TTPeriod,"Total time period (days) : %*.*lf",33,0) ;
+@@ "";
+@@ ""; 
+@@ "------------------------------------------------------------------------------------------------ " ; 
+@@ " LIBOR      Put payoffs      Int. on Deposit    Total eff. int.      Ann. returns on Deposit  " ;
+@@ "at t + ...     at t + ...        at t + ...                         with put      without put " ;
+@@ "------------------------------------------------------------------------------------------------ " ; 
+@@ call printfm(flo_tab, mask, fmt) ;
+@@ "------------------------------------------------------------------------------------------------ " ; 
+@@ ftos(Dep_st ,"Note : LIBOR at t+%*.*lf",2,0) ;
+@@ ftos(TTPeriod ,"       Put payoffs at t+%*.*lf",3,0) ;
+@@ ftos(TTPeriod ,"       Int. on Deposit at t+%*.*lf",3,0) ;
+@@ "" ; 
+
+end ; 
